@@ -25,7 +25,7 @@ export default function Dashboard() {
       </div>
 
       {/* profile ... */}
-      <div className="w-full">{tab === "profile" && <DashProfile />}</div>
+      {tab === "profile" && <DashProfile />}
 
       {/* for posts */}
       {tab === "posts" && <DashPosts />}
