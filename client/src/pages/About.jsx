@@ -5,9 +5,18 @@ export default function About() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-2xl mx-auto p-3 text-justify">
         <div className="">
-          <h1 className="text-3xl font-semibold text-center my-7">
-            About Starlight Blog
+          <p className="text-slate-700 w-full text-center">About</p>
+          <h1 className="flex flex-col items-center w-full mb-4 border-b border-black pb-4">
+            <img
+              src="./apple-touch-icon.png"
+              alt="starlight magazine image"
+              className="w-[250px] "
+            />
+            <span className="text-red-500 mt-3">
+              shining the light, enriching the soul
+            </span>
           </h1>
+
           <div className="text-md text-gray-500 flex flex-col gap-6">
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis

@@ -2,9 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction.jsx";
 import PostCard from "../components/PostCard.jsx";
+import { useSelector } from "react-redux";
+import { Button, Modal } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import Verses from "../components/RandomVerses.jsx";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [showModal, setShowModal] = useState(true);
+  const { currentUser } = useSelector((state) => state.user);
+
+  // useEffect(() => {
+  //   setShowModal(true);
+  // }, [currentUser._id || !currentUser]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -52,6 +62,24 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <Verses />
+            <div className="flex justify-center mt-4">
+              <Button color="gray" onClick={() => setShowModal(false)}>
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

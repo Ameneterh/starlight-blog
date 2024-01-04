@@ -5,7 +5,7 @@ import About from "./pages/About";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
-import Projects from "./pages/Projects";
+import Articles from "./pages/Articles";
 import Header from "./components/Header";
 import FooterCom from "./components/FooterCom";
 import PrivateRoutes from "./components/PrivateRoutes";
@@ -34,7 +34,7 @@ export default function App() {
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/articles" element={<Articles />} />
         <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <FooterCom />
