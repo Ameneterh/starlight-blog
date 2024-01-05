@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    fullname: {
+      type: String,
+      default: "Unauthored User",
+    },
     username: {
       type: String,
       required: true,
@@ -16,6 +20,11 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      minlength: 6,
+    },
+    authorbio: {
+      type: String,
+      default: "Not an author",
     },
     profilePicture: {
       type: String,
