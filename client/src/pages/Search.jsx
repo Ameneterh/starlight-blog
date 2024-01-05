@@ -1,7 +1,7 @@
 import { Button, Select, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PostCard from "../components/PostCard";
+import PostCard, { PostCardMobile } from "../components/PostCard";
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -162,7 +162,16 @@ export default function Search() {
 
           {!loading &&
             posts &&
-            posts.map((post) => <PostCard key={post._id} post={post} />)}
+            posts.map((post) => (
+              <>
+                <div className="hidden sm:flex w-full">
+                  <PostCard key={post._id} post={post} />
+                </div>
+                <div className="sm:hidden flex w-full">
+                  <PostCardMobile key={post._id} post={post} />
+                </div>
+              </>
+            ))}
 
           {showMore && (
             <button
