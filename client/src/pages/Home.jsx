@@ -49,7 +49,7 @@ export default function Home() {
             View all posts
           </Link>
         </div>
-        <div className="flex flex-1 w-full h-96 bg-[url('/reading-book.gif')] bg-no-repeat bg-cover rounded-xl shadow-md"></div>
+        <div className="hidden sm:flex flex-1 w-full h-96 bg-[url('/reading-book.gif')] bg-no-repeat bg-cover rounded-xl shadow-md"></div>
       </div>
       <div className="p-3 bg-amber-100 dark:bg-slate-700">
         <CallToAction />
