@@ -42,27 +42,11 @@ export default function FooterCom() {
             <div className="">
               <Footer.Title title="About" />
               <Footer.LinkGroup col>
-                <Footer.Link
-                  href="/about-motivation"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Footer.Link href="/about#motivation">
                   The Motivation
                 </Footer.Link>
-                <Footer.Link
-                  href="/mission"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Mission
-                </Footer.Link>
-                <Footer.Link
-                  href="/vision"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Vision
-                </Footer.Link>
+                <Footer.Link href="/about#mission">Mission</Footer.Link>
+                <Footer.Link href="/about#vision">Vision</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div className="">

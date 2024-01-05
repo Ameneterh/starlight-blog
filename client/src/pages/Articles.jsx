@@ -58,7 +58,7 @@ export default function Articles() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7">
+      <div className="max-w-6xl mx-auto flex flex-col gap-8 py-7 table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
         {posts && posts.length > 0 ? (
           <>
             <Table hoverable className="shadow-md">
@@ -66,6 +66,7 @@ export default function Articles() {
                 <Table.HeadCell>Date Updated</Table.HeadCell>
                 <Table.HeadCell>Post Image</Table.HeadCell>
                 <Table.HeadCell>Post Title</Table.HeadCell>
+                <Table.HeadCell>Post Excerpt</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
                 {/* <Table.HeadCell>Author Username</Table.HeadCell> */}
               </Table.Head>
@@ -92,6 +93,10 @@ export default function Articles() {
                         {post.title}
                       </Link>
                     </Table.Cell>
+                    <Table.Cell
+                      className="line-clamp-3 w-60 lg:w-96"
+                      dangerouslySetInnerHTML={{ __html: post && post.content }}
+                    ></Table.Cell>
                     <Table.Cell>
                       <Link to={`/search?category=${post.category}`}>
                         {post.category}

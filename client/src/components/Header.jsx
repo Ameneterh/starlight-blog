@@ -55,7 +55,7 @@ export default function Header() {
           Like stars, shine through the dark night sky
         </p>
       </div>
-      <Navbar className="border-b-2">
+      <Navbar fluid rounded className="border-b-2">
         <Link to="/" className="hidden sm:inline">
           <img
             src="/apple-touch-icon.png"
@@ -77,19 +77,22 @@ export default function Header() {
             type="text"
             placeholder="Search ..."
             rightIcon={AiOutlineSearch}
-            className="hidden lg:inline"
+            className="hidden lg:inline lg:w-[300px]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-        <Button className="w-12 h-10 lg:hidden" color="grey" pill>
+        <Button
+          onClick={handleSubmit}
+          className="w-12 h-10 lg:hidden border border-slate-300 dark:border-slate-600"
+          color="grey"
+        >
           <AiOutlineSearch />
         </Button>
         <div className="flex gap-2 md:order-2">
           <Button
-            className="w-12 h-10 hidden sm:inline"
+            className="w-12 h-10"
             color="gray"
-            pill
             onClick={() => {
               dispatch(toggleTheme());
             }}
@@ -129,7 +132,7 @@ export default function Header() {
           <Navbar.Link active={path === "/"} as={"div"}>
             <Link to="/">Home</Link>
           </Navbar.Link>
-          <Navbar.Link active={path === "/projects"} as={"div"}>
+          <Navbar.Link active={path === "/articles"} as={"div"}>
             <Link to="/articles">Articles</Link>
           </Navbar.Link>
           <Navbar.Link active={path === "/about"} as={"div"}>
