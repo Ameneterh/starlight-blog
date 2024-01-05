@@ -3,12 +3,15 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import ReactQuill from "react-quill";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  console.log(formData);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -43,7 +46,7 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen mt-20">
-      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
+      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-start gap-5">
         {/* left */}
         <div className="flex-1">
           <Link to="/" className="font-bold dark:text-white text-4xl">
@@ -65,6 +68,15 @@ export default function SignUp() {
           <div className="">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="">
+                <Label value="Your Full Name" />
+                <TextInput
+                  type="text"
+                  placeholder="Fullname"
+                  id="fullname"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="">
                 <Label value="Your username" />
                 <TextInput
                   type="text"
@@ -80,6 +92,18 @@ export default function SignUp() {
                   placeholder="email@company.com"
                   id="email"
                   onChange={handleChange}
+                />
+              </div>
+              <div className="">
+                <Label value="Author Bio (if an author)" />
+                <ReactQuill
+                  theme="snow"
+                  placeholder="Write something ..."
+                  className="h-36 mb-12"
+                  required
+                  onChange={(value) => {
+                    setFormData({ ...formData, authorbio: value });
+                  }}
                 />
               </div>
               <div className="">

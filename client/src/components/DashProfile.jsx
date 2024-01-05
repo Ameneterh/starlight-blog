@@ -22,6 +22,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -36,6 +37,8 @@ export default function DashProfile() {
 
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+
+  console.log(formData);
 
   const filePickerRef = useRef();
 
@@ -89,8 +92,6 @@ export default function DashProfile() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
-  // console.log(currentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -220,23 +221,48 @@ export default function DashProfile() {
 
         <TextInput
           type="text"
+          id="fullname"
+          placeholder="fullname"
+          defaultValue={currentUser.fullname}
+          onChange={(e) =>
+            setFormData({ ...formData, fullname: e.target.value })
+          }
+        />
+        <TextInput
+          type="text"
           id="username"
           placeholder="username"
           defaultValue={currentUser.username}
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
         />
         <TextInput
           type="email"
           id="email"
           placeholder="user@company.com"
           defaultValue={currentUser.email}
-          onChange={handleChange}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         />
+        {/* <div className=""> */}
+        <ReactQuill
+          theme="snow"
+          placeholder="Write something ..."
+          className="h-36 mb-12"
+          required
+          onChange={(value) => {
+            setFormData({ ...formData, authorbio: value });
+          }}
+          value={formData.authorbio}
+        />
+        {/* </div> */}
         <TextInput
           type="password"
           id="password"
           placeholder="password"
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
         />
 
         <Button

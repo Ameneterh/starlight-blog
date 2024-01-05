@@ -29,6 +29,10 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    downloadfile: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
