@@ -164,7 +164,7 @@ export default function Search() {
             posts &&
             posts.map((post) => (
               <>
-                <div className="hidden sm:flex w-full">
+                <div className="hidden sm:flex">
                   <PostCard key={post._id} post={post} />
                 </div>
                 <div className="sm:hidden flex w-full">
