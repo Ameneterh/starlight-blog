@@ -17,6 +17,11 @@ export default function CreatePost() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
+
+  const [filePdf, setFilePdf] = useState([]);
+  const [pdfUploadProgress, setPdfUploadProgress] = useState(null);
+  const [pdfUploadError, setPdfUploadError] = useState(null);
+
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
 
@@ -55,6 +60,47 @@ export default function CreatePost() {
     } catch (error) {
       setImageUploadError("Image upload failed!!");
       setImageUploadProgress(null);
+      // console.log(error);
+    }
+  };
+
+  const handleUploadPdf = async () => {
+    try {
+      if (!filePdf[0]) {
+        setPdfUploadError("Please, select a pdf to upload");
+        return;
+      }
+      setPdfUploadError(null);
+      const storage = getStorage(app);
+      const fileName = (filePdf[0].name + "-" + new Date().toLocaleDateString())
+        .split(" ")
+        .join("-")
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9]/g, "-");
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, filePdf[0]);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setPdfUploadProgress(progress.toFixed(0));
+        },
+        (error) => {
+          setPdfUploadError("File upload failed!");
+          setPdfUploadProgress(null);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setPdfUploadProgress(null);
+            setPdfUploadError(null);
+            setFormData({ ...formData, downloadfile: downloadURL });
+          });
+        }
+      );
+    } catch (error) {
+      setPdfUploadError("File upload failed!!");
+      setPdfUploadProgress(null);
       // console.log(error);
     }
   };
@@ -137,7 +183,41 @@ export default function CreatePost() {
           </Button>
         </div>
 
+        {/* for pdf upload */}
+        <div className="flex gap-4 items-center justify-between border-4 bg-gray-200 dark:bg-slate-600 p-3 rounded-lg">
+          <FileInput
+            type="file"
+            accept="application/pdf"
+            onChange={(e) => setFilePdf(e.target.files)}
+          />
+          <Button
+            type="button"
+            gradientDuoTone="purpleToBlue"
+            size="sm"
+            outline
+            onClick={handleUploadPdf}
+            disabled={pdfUploadProgress}
+          >
+            {pdfUploadProgress ? (
+              <div className="w-16 h-16">
+                <CircularProgressbar
+                  value={pdfUploadProgress}
+                  text={`${pdfUploadProgress || 0}%`}
+                />
+              </div>
+            ) : (
+              "Upload pdf"
+            )}
+          </Button>
+        </div>
+
         {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
+
+        {pdfUploadError && <Alert color="failure">{pdfUploadError}</Alert>}
+
+        {formData.downloadfile && (
+          <Alert color="success">Upload Completed successfully</Alert>
+        )}
 
         {formData.image && (
           <img

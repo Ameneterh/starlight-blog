@@ -31,7 +31,6 @@ const postSchema = new mongoose.Schema(
     },
     downloadfile: {
       type: String,
-      unique: true,
     },
   },
   { timestamps: true }

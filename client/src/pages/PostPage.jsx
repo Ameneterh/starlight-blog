@@ -111,8 +111,12 @@ export default function PostPage() {
             {post && post.category}
           </Button>
         </Link>
-        <Link to={"#"} download>
-          Download PDF
+        <Link
+          to={post.downloadfile}
+          download
+          className="text-blue-700 hover:underline underline-offset-4"
+        >
+          Read or Download PDF
         </Link>
       </div>
 
