@@ -9,12 +9,13 @@ export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [post, setPost] = useState(null);
   const [users, setUsers] = useState([]);
+  const [post, setPost] = useState({});
+  const [postAuthor, setPostAuthor] = useState({});
   const [recentPosts, setRecentPosts] = useState(null);
 
   console.log(post);
-  console.log(users);
+  console.log(postAuthor);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,6 +31,7 @@ export default function PostPage() {
         }
         if (res.ok) {
           setPost(data.posts[0]);
+          setPostAuthor(data.postAuthor);
           setLoading(false);
           setError(false);
         }
@@ -40,15 +42,25 @@ export default function PostPage() {
     };
     fetchPost();
 
-    const fetchAuthors = async () => {
-      const res = await fetch(`/api/user/getusers`);
-      const data = await res.json();
-      if (res.ok) {
-        setUsers(data.users);
-      }
-    };
+    // const fetchPostAuthor = async (userId) => {
+    //   const res = await fetch(`/api/user/${userId}`);
+    //   const author = await res.json();
+    //   if (res.ok) {
+    //     setPostAuthor(author);
+    //   }
+    // };
 
-    fetchAuthors();
+    // fetchPostAuthor(post.userId);
+
+    // const fetchAuthors = async () => {
+    //   const res = await fetch(`/api/user/getusers`);
+    //   const data = await res.json();
+    //   if (res.ok) {
+    //     setUsers(data.users);
+    //   }
+    // };
+
+    // fetchAuthors();
   }, [postSlug]);
 
   useEffect(() => {
@@ -66,6 +78,14 @@ export default function PostPage() {
     }
   }, []);
 
+  // const getPostAuthor = (userId) => {
+  //   return users.find((author) => {
+  //     if (author._id === userId) {
+  //       return author;
+  //     }
+  //   });
+  // };
+
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -73,17 +93,9 @@ export default function PostPage() {
       </div>
     );
 
-  const getPostAuthor = (userId) => {
-    return users.find((author) => {
-      if (author._id === userId) {
-        return author;
-      }
-    });
-  };
-
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
-      <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
+      <h1 className="text-3xl mt-10 p-3 text-center font-bold max-w-2xl mx-auto lg:text-4xl">
         {post && post.title}
       </h1>
       <div className="flex gap-4 items-center justify-center border-t border-slate-700 pt-2 text-sm">
@@ -91,57 +103,65 @@ export default function PostPage() {
           to={`#$`}
           className="text-teal-700 hover:underline underline-offset-4"
         >
-          {getPostAuthor(post.userId).fullname}
+          {postAuthor.fullname}
         </Link>
-        <p className="font-semibold">@{getPostAuthor(post.userId).username}</p>
+        <p className="font-semibold">@{postAuthor.username}</p>
         <Link
-          to={`mailto:${getPostAuthor(post.userId).email}`}
+          to={`mailto:${postAuthor.email}`}
           className="text-teal-700 hover:underline underline-offset-4"
         >
-          {getPostAuthor(post.userId).email}
+          {postAuthor.email}
         </Link>
       </div>
 
-      <div className="flex items-center mt-5 gap-10">
-        <Link
-          to={`/search?category=${post && post.category}`}
-          className="self-center"
-        >
-          <Button color="gray" size="sm" className="shadow-sm capitalize">
-            {post && post.category}
-          </Button>
-        </Link>
-        <Link
-          to={post.downloadfile}
-          download
-          className="text-blue-700 hover:underline underline-offset-4"
-        >
-          Read or Download PDF
-        </Link>
+      <div className="flex flex-col md:flex-row mt-6 gap-5">
+        <div className="flex flex-col w-full md:w-[400px]">
+          <div className="flex items-center mt-5 gap-10">
+            <Link
+              to={`/search?category=${post && post.category}`}
+              className="self-center"
+            >
+              <Button color="gray" size="sm" className="shadow-sm capitalize">
+                {post && post.category}
+              </Button>
+            </Link>
+            <Link
+              to={post.downloadfile}
+              download
+              className="text-blue-700 hover:underline underline-offset-4"
+            >
+              Read or Download PDF
+            </Link>
+          </div>
+
+          <img
+            src={post && post.image}
+            alt={post && post.title}
+            className="hidden md:flex mt-4 p-3 max-h-[600px] w-full object-cover"
+          />
+        </div>
+
+        <div className="flex-1">
+          <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
+            <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+            <span className="italic">
+              {post && (post.content.length / 1000).toFixed(0)} mins read
+            </span>
+          </div>
+
+          <div
+            dangerouslySetInnerHTML={{ __html: post && post.content }}
+            className="p-3 max-w-2xl mx-auto w-full post-content"
+          ></div>
+
+          <div className="max-w-4xl mx-auto w-full">
+            <CallToAction />
+          </div>
+          <CommentSection postId={post._id} />
+        </div>
       </div>
 
-      <img
-        src={post && post.image}
-        alt={post && post.title}
-        className="mt-10 p-3 max-h-[600px] w-full object-cover"
-      />
-
-      <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
-        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span className="italic">
-          {post && (post.content.length / 1000).toFixed(0)} mins read
-        </span>
-      </div>
-
-      <div
-        dangerouslySetInnerHTML={{ __html: post && post.content }}
-        className="p-3 max-w-2xl mx-auto w-full post-content"
-      ></div>
-
-      <div className="max-w-4xl mx-auto w-full">
-        <CallToAction />
-      </div>
-      <CommentSection postId={post._id} />
+      {/* Stop here */}
 
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent Articles</h1>

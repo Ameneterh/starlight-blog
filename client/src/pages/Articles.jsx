@@ -9,8 +9,6 @@ export default function Articles() {
   const [loading, setLoading] = useState(true);
   const [showMore, setShowMore] = useState(false);
 
-  console.log(posts);
-
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch(`/api/post/getposts?limit=10`);

@@ -25,6 +25,9 @@ export default function UpdatePost() {
 
   const navigate = useNavigate();
 
+  console.log(formData._id);
+  console.log(postId);
+
   useEffect(() => {
     try {
       const fetchPost = async () => {
@@ -85,6 +88,7 @@ export default function UpdatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await fetch(
         `/api/post/updatepost/${formData._id}/${currentUser._id}`,

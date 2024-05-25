@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   return (
-    <>
+    <div className="sticky top-0 z-50">
       <div className="flex justify-center items-center w-full bg-[#943d24] dark:bg-slate-900 p-1 border-b-[2px] border-b-slate-200">
         <p className="text-white text-lg truncate">
           Like stars, shine through the dark night sky
@@ -140,6 +140,6 @@ export default function Header() {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-    </>
+    </div>
   );
 }
