@@ -14,9 +14,6 @@ export default function PostPage() {
   const [postAuthor, setPostAuthor] = useState({});
   const [recentPosts, setRecentPosts] = useState(null);
 
-  console.log(post);
-  console.log(postAuthor);
-
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -31,7 +28,6 @@ export default function PostPage() {
         }
         if (res.ok) {
           setPost(data.posts[0]);
-          setPostAuthor(data.postAuthor);
           setLoading(false);
           setError(false);
         }
@@ -42,26 +38,16 @@ export default function PostPage() {
     };
     fetchPost();
 
-    // const fetchPostAuthor = async (userId) => {
-    //   const res = await fetch(`/api/user/${userId}`);
-    //   const author = await res.json();
-    //   if (res.ok) {
-    //     setPostAuthor(author);
-    //   }
-    // };
+    const fetchPostAuthor = async (userId) => {
+      const res = await fetch(`/api/user/${userId}`);
+      const author = await res.json();
+      if (res.ok) {
+        setPostAuthor(author);
+      }
+    };
 
-    // fetchPostAuthor(post.userId);
-
-    // const fetchAuthors = async () => {
-    //   const res = await fetch(`/api/user/getusers`);
-    //   const data = await res.json();
-    //   if (res.ok) {
-    //     setUsers(data.users);
-    //   }
-    // };
-
-    // fetchAuthors();
-  }, [postSlug]);
+    fetchPostAuthor(post.userId);
+  }, [postSlug, post.userId]);
 
   useEffect(() => {
     try {
@@ -77,14 +63,6 @@ export default function PostPage() {
       console.log(error.message);
     }
   }, []);
-
-  // const getPostAuthor = (userId) => {
-  //   return users.find((author) => {
-  //     if (author._id === userId) {
-  //       return author;
-  //     }
-  //   });
-  // };
 
   if (loading)
     return (
