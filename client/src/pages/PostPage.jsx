@@ -78,7 +78,7 @@ export default function PostPage() {
       </h1>
       <div className="flex gap-4 items-center justify-center border-t border-slate-700 pt-2 text-sm">
         <Link
-          to={`#$`}
+          to={`/user/${postAuthor._id}`}
           className="text-teal-700 hover:underline underline-offset-4"
         >
           {postAuthor.fullname}

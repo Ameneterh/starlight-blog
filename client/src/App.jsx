@@ -16,6 +16,7 @@ import PostPage from "./pages/PostPage";
 import ScrollToTop from "./components/ScrollToTop";
 import Search from "./pages/Search";
 import ReceiveChrist from "./pages/ReceiveChrist";
+import AuthorPage from "./pages/AuthorPage";
 
 export default function App() {
   return (
@@ -25,10 +26,14 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/user/:userId" element={<AuthorPage />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/receive-christ" element={<ReceiveChrist />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
+
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -36,8 +41,6 @@ export default function App() {
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
-        <Route path="/articles" element={<Articles />} />
-        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <FooterCom />
     </BrowserRouter>

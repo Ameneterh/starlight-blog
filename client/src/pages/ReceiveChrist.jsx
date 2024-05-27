@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaQuoteLeft } from "react-icons/fa";
 import { HiMail, HiOutlinePhoneMissedCall, HiUser } from "react-icons/hi";
 import {
@@ -7,21 +7,24 @@ import {
   Button,
   Checkbox,
   Label,
+  Spinner,
   TextInput,
   Textarea,
 } from "flowbite-react";
 import Divider from "../components/Divider";
-import { useNavigate } from "react-router-dom";
 
 export default function ReceiveChrist() {
   const [formData, setFormData] = useState({});
   const [uploadError, setUploadError] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       const res = await fetch("/api/saved/accepted-christ", {
         method: "POST",
@@ -33,14 +36,17 @@ export default function ReceiveChrist() {
       const data = await res.json();
       if (!res.ok) {
         setUploadError(data.message);
+        setLoading(false);
         return;
       }
       if (res.ok) {
         setUploadError(null);
-        navigate("/");
+        setLoading(false);
+        navigate(-1);
       }
     } catch (error) {
       setUploadError("Something went wrong");
+      setLoading(false);
     }
   };
 
@@ -160,7 +166,14 @@ export default function ReceiveChrist() {
                 </Label>
               </div>
               <Button type="submit" className="dark:bg-[rgb(43,56,88)]">
-                Submit
+                {!uploadError && loading ? (
+                  <>
+                    <Spinner size="sm" />
+                    <span className="pl-3">Sending Message ...</span>
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </Button>
               {uploadSuccess && (
                 <Alert color="success" className="mt-5">

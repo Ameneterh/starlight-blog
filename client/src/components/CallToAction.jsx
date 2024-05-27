@@ -17,12 +17,11 @@ export default function CallToAction() {
           with me."
         </p>
         <Button
-          // gradientDuoTone="purpleToPink"
+          gradientDuoTone="purpleToPink"
           className="rounded-md hover:opacity-80 hover:bg-blue-400"
-          outline
           to="/receive-christ"
-          target="_blank"
-          rel="noopener noreferrer"
+          // target="_blank"
+          // rel="noopener noreferrer"
           as={Link}
         >
           Answer the Door
