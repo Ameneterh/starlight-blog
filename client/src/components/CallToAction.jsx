@@ -1,8 +1,10 @@
-import { Button } from "flowbite-react";
-import React from "react";
+import { Button, Modal } from "flowbite-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function CallToAction() {
+  const [showModal, setShowModal] = useState(true);
+
   return (
     <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center">
       <div className="flex-1 justify-center flex flex-col">
@@ -15,12 +17,15 @@ export default function CallToAction() {
           with me."
         </p>
         <Button
-          gradientDuoTone="purpleToPink"
-          className="rounded-tl-xl rounded-bl-none"
+          // gradientDuoTone="purpleToPink"
+          className="rounded-md hover:opacity-80 hover:bg-blue-400"
+          outline
+          to="/receive-christ"
+          target="_blank"
+          rel="noopener noreferrer"
+          as={Link}
         >
-          <Link to="#" target="_blank" rel="noopener noreferrer">
-            Answer the Door
-          </Link>
+          Answer the Door
         </Button>
       </div>
       <div className="flex-1 p-7">

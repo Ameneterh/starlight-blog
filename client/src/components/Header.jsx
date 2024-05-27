@@ -55,7 +55,7 @@ export default function Header() {
           Like stars, shine through the dark night sky
         </p>
       </div>
-      <Navbar fluid rounded className="border-b-2">
+      <Navbar fluid className="border-b-2">
         <Link to="/" className="hidden sm:inline">
           <img
             src="/apple-touch-icon.png"
