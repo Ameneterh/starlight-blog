@@ -73,10 +73,16 @@ export default function DashMessages() {
                     </Table.Cell>
                     <Table.Cell>{message.fullname}</Table.Cell>
                     <Table.Cell className="">
-                      <Link to={`mailto:${message.email}`} className="block">
+                      <Link
+                        to={`mailto:${message.email}`}
+                        className="block hover:underline underline-offset-4 hover:font-bold hover:text-slate-950"
+                      >
                         {message.email}
                       </Link>
-                      <Link to={`mailto:${message.email}`}>
+                      <Link
+                        to={`tel:${message.phonenumber}`}
+                        className="hover:underline underline-offset-4 hover:font-bold hover:text-slate-950"
+                      >
                         {message.phonenumber}
                       </Link>
                     </Table.Cell>

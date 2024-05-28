@@ -28,7 +28,7 @@ export default function FooterCom() {
             <div className="hidden md:flex md:flex-col h-full gap-2 px-2 py-4 w-96">
               <h2 className="text-lg font-semibold">
                 Daniel 12:3{" "}
-                <span className="text-sm text-slate-700">Amplified</span>
+                <span className="text-sm text-slate-400">Amplified</span>
               </h2>
               <p className="text-sm text-slate-800 dark:text-slate-300">
                 "Men and women who have lived wisely and well will shine

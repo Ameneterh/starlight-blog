@@ -251,7 +251,7 @@ export default function DashProfile() {
           onChange={(value) => {
             setFormData({ ...formData, authorbio: value });
           }}
-          value={formData.authorbio}
+          value={currentUser.authorbio}
         />
         {/* </div> */}
         <TextInput
