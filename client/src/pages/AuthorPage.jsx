@@ -59,13 +59,13 @@ export default function AuthorPage() {
     );
 
   return (
-    <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
+    <main className="p-3 flex flex-col max-w-4xl mx-auto min-h-screen">
       <div className="flex flex-col-reverse md:flex-row mt-6 gap-5">
-        <div className="flex flex-col w-full md:w-[400px]">
+        <div className="flex flex-col w-full md:max-w-[300px] items-center">
           <img
             src={author && author.profilePicture}
             alt={author && author.fullname}
-            className="max-h-[600px] w-full object-cover rounded-full"
+            className="w-[300px] h-[300px] max-w-[300px] max-h-[300px] object-cover rounded-full"
           />
         </div>
         <div className="flex-1 flex flex-col gap-4 p-4 overflow-x-auto">
@@ -73,7 +73,7 @@ export default function AuthorPage() {
           <Table striped className="">
             <Table.Body className="divide-y">
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <Table.Cell className="whitespace-nowrap">
+                <Table.Cell className="whitespace-nowrap w-16">
                   Author Full Name:
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap text-gray-900 dark:text-white">
@@ -81,7 +81,7 @@ export default function AuthorPage() {
                 </Table.Cell>
               </Table.Row>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <Table.Cell className="whitespace-nowrap">
+                <Table.Cell className="whitespace-nowrap w-16">
                   Author Email:
                 </Table.Cell>
                 <Table.Cell className="whitespace-nowrap text-gray-900 dark:text-white">
@@ -89,7 +89,7 @@ export default function AuthorPage() {
                 </Table.Cell>
               </Table.Row>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <Table.Cell className="whitespace-nowrap flex justify-start">
+                <Table.Cell className="whitespace-nowrap flex justify-start w-16">
                   About Author:
                 </Table.Cell>
                 <Table.Cell className="text-gray-900 dark:text-white">
