@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 import ReactQuill from "react-quill";
+import { message as msg } from "antd";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -40,6 +41,7 @@ export default function SignUp() {
       }
     } catch (error) {
       setErrorMessage(error.message);
+      msg.error(error.message);
       setLoading(false);
     }
   };

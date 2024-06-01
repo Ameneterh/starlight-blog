@@ -57,8 +57,8 @@ export default function SignIn() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a blog containing all editions of Starlight Magazine. You
-            can read online here or download pdf to read later at your
+            This is a blog containing all editions of <b>Starlight Magazine.</b>{" "}
+            You can read online here or download pdf to read later at your
             convenience. You can sign in with your email and password of with
             Google Authentication.
           </p>
