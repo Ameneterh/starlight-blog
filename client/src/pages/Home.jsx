@@ -9,7 +9,7 @@ import Verses from "../components/RandomVerses.jsx";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
   // useEffect(() => {

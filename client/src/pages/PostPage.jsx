@@ -108,8 +108,9 @@ export default function PostPage() {
               download
               className="text-blue-700 hover:underline underline-offset-4"
             >
-              Read or Download PDF
+              Read/Download PDF
             </Link>
+            <div>Edition</div>
           </div>
 
           <img
