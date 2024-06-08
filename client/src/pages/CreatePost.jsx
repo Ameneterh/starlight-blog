@@ -151,9 +151,10 @@ export default function CreatePost() {
             }
           >
             <option value="uncategorized">Select a category</option>
-            <option value="worship">Worship</option>
+            <option value="general">General</option>
             <option value="holiness">Holiness</option>
             <option value="thanksgiving">Thanksgiving</option>
+            <option value="worship">Worship</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3 rounded-lg">
