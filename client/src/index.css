@@ -15,14 +15,18 @@ body {
   margin-bottom: 15px;
 }
 
+.ql-editor blockquote {
+  margin-bottom: 15px;
+}
+
 .post-content p {
   margin-bottom: 15px;
 }
 
 .post-content blockquote {
   margin-bottom: 15px;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .post-content a {
