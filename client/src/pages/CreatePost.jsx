@@ -12,6 +12,7 @@ import { app } from "../firebase.js";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
+import { modules } from "../modules.js";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -151,6 +152,7 @@ export default function CreatePost() {
             }
           >
             <option value="uncategorized">Select a category</option>
+            <option value="living">Christian Living</option>
             <option value="general">General</option>
             <option value="holiness">Holiness</option>
             <option value="thanksgiving">Thanksgiving</option>
@@ -230,6 +232,7 @@ export default function CreatePost() {
 
         <ReactQuill
           theme="snow"
+          modules={modules}
           placeholder="Write something ..."
           className="h-72 mb-12"
           required

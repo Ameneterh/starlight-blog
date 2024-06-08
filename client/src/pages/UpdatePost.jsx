@@ -13,6 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { modules } from "../modules.js";
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
@@ -179,6 +180,7 @@ export default function UpdatePost() {
 
         <ReactQuill
           theme="snow"
+          modules={modules}
           placeholder="Write something ..."
           className="h-72 mb-12"
           required

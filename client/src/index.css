@@ -12,7 +12,16 @@ body {
 }
 
 .post-content p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 15px;
+}
+
+.post-content a {
+  color: blue;
+}
+
+.post-content a:hover {
+  opacity: 80%;
+  text-decoration: underline;
 }
 
 .post-content h1 {
