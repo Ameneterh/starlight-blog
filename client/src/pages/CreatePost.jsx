@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { TextInput, Select, FileInput, Button, Alert } from "flowbite-react";
+import {
+  TextInput,
+  Select,
+  FileInput,
+  Button,
+  Alert,
+  Spinner,
+} from "flowbite-react";
 import {
   getDownloadURL,
   getStorage,
@@ -22,6 +29,8 @@ export default function CreatePost() {
   const [filePdf, setFilePdf] = useState([]);
   const [pdfUploadProgress, setPdfUploadProgress] = useState(null);
   const [pdfUploadError, setPdfUploadError] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
@@ -109,6 +118,7 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await fetch("/api/post/create", {
         method: "POST",
         headers: {
@@ -118,15 +128,18 @@ export default function CreatePost() {
       });
       const data = await res.json();
       if (!res.ok) {
+        setLoading(false);
         setPublishError(data.message);
         return;
       }
       if (res.ok) {
+        setLoading(false);
         setPublishError(null);
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
+      setLoading(false);
     }
   };
 
@@ -241,9 +254,19 @@ export default function CreatePost() {
           }}
         />
 
-        <Button type="submit" gradientDuoTone="purpleToPink">
-          Publish
+        <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span className="pl-3">Publishing ...</span>
+            </>
+          ) : (
+            "Publish"
+          )}
         </Button>
+        {/* <Button type="submit" gradientDuoTone="purpleToPink">
+          Publish
+        </Button> */}
 
         {publishError && (
           <Alert color="failure" className="mt-5">
