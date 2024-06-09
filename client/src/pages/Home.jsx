@@ -12,9 +12,9 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   setShowModal(true);
-  // }, [currentUser._id || !currentUser]);
+  useEffect(() => {
+    setShowModal(true);
+  }, [currentUser._id || !currentUser]);
 
   useEffect(() => {
     const fetchPosts = async () => {
