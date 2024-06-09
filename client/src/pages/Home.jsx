@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(() => {
     setShowModal(true);
-  }, []);
+  }, [!currentUser || currentUser._id]);
 
   useEffect(() => {
     const fetchPosts = async () => {
