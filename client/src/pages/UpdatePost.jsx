@@ -190,8 +190,15 @@ export default function UpdatePost() {
           value={formData.content}
         />
 
-        <Button type="submit" gradientDuoTone="purpleToPink">
-          Update Post
+        <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span className="pl-3">Updating Post ...</span>
+            </>
+          ) : (
+            "Update Post"
+          )}
         </Button>
 
         {publishError && (

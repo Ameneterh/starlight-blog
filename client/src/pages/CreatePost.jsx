@@ -264,9 +264,6 @@ export default function CreatePost() {
             "Publish"
           )}
         </Button>
-        {/* <Button type="submit" gradientDuoTone="purpleToPink">
-          Publish
-        </Button> */}
 
         {publishError && (
           <Alert color="failure" className="mt-5">
