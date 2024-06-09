@@ -8,7 +8,7 @@ export default function PostCard({ post }) {
         <img
           src={post.image}
           alt="post cover"
-          className="h-[260px] w-full object-cover group-hover:h-[200px] transition-all duration-300 z-20"
+          className="h-[260px] w-full object-cover object-top group-hover:h-[200px] transition-all duration-300 z-20"
         />
       </Link>
       <div className="p-3 flex flex-col gap-2">
@@ -32,7 +32,7 @@ export function PostCardMobile({ post }) {
         <img
           src={post.image}
           alt="post cover"
-          className="h-full w-36 object-cover group-hover:h-[200px] transition-all duration-300 z-20"
+          className="h-full w-36 object-cover object-top group-hover:h-[200px] transition-all duration-300 z-20"
         />
       </Link>
       <div className="p-3 flex flex-col flex-1 gap-2">
