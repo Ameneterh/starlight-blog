@@ -23,6 +23,7 @@ export default function UpdatePost() {
   const { postId } = useParams();
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -88,6 +89,7 @@ export default function UpdatePost() {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const res = await fetch(
         `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
@@ -100,15 +102,18 @@ export default function UpdatePost() {
       );
       const data = await res.json();
       if (!res.ok) {
+        setLoading(false);
         setPublishError(data.message);
         return;
       }
       if (res.ok) {
+        setLoading(false);
         setPublishError(null);
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
+      setLoading(false);
     }
   };
 
