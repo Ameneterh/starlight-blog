@@ -16,7 +16,10 @@ body {
 }
 
 .ql-editor blockquote {
+  margin-top: -15px;
   margin-bottom: 15px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .post-content p {
@@ -24,13 +27,14 @@ body {
 }
 
 .post-content blockquote {
+  margin-top: -15px;
   margin-bottom: 15px;
   margin-left: 10%;
   margin-right: 10%;
 }
 
 .post-content a {
-  color: blue;
+  color: rgb(142, 142, 175);
 }
 
 .post-content a:hover {
