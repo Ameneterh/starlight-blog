@@ -106,3 +106,25 @@ export const updatepost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const likepost = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return next(errorHandler(404, "Motivational not found"));
+    }
+
+    const userIndex = post.likes.indexOf(req.user.userId);
+    if (userIndex === -1) {
+      post.numberOfLikes += 1;
+      post.likes.push(req.user.userId);
+    } else {
+      post.numberOfLikes -= 1;
+      post.likes.splice(userIndex, 1);
+    }
+    await post.save();
+    res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
