@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, Spinner } from "flowbite-react";
+import { FaDownload, FaRegShareSquare } from "react-icons/fa";
+import { SlDislike, SlLike } from "react-icons/sl";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard, { PostCardMobile } from "../components/PostCard";
+import Divider from "../components/Divider";
+import BookAdvert from "../components/BookAdvert";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -13,6 +17,7 @@ export default function PostPage() {
   const [post, setPost] = useState({});
   const [postAuthor, setPostAuthor] = useState({});
   const [recentPosts, setRecentPosts] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -52,7 +57,7 @@ export default function PostPage() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
+        const res = await fetch(`/api/post/getposts?limit=10`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);
@@ -72,56 +77,103 @@ export default function PostPage() {
     );
 
   return (
-    <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
-      <h1 className="text-3xl mt-10 p-3 text-center font-bold max-w-2xl mx-auto lg:text-4xl">
-        {post && post.title}
-      </h1>
-      <div className="flex gap-4 items-center justify-center border-t border-slate-700 pt-2 text-sm">
-        <Link
-          to={`/user/${postAuthor._id}`}
-          className="text-teal-700 hover:underline underline-offset-4"
-        >
-          {postAuthor.fullname}
-        </Link>
-        <p className="font-semibold">@{postAuthor.username}</p>
-        <Link
-          to={`mailto:${postAuthor.email}`}
-          className="text-teal-700 hover:underline underline-offset-4"
-        >
-          {postAuthor.email}
-        </Link>
-      </div>
-
-      <div className="flex flex-col md:flex-row mt-6 gap-5">
-        <div className="flex flex-col w-full md:w-[400px]">
-          <div className="flex items-center mt-5 gap-10">
-            <Link
-              to={`/search?category=${post && post.category}`}
-              className="self-center"
-            >
-              <Button color="gray" size="sm" className="shadow-sm capitalize">
-                {post && post.category}
-              </Button>
-            </Link>
-            <Link
-              to={post.downloadfile}
-              download
-              className="text-blue-700 hover:underline underline-offset-4"
-            >
-              Read/Download PDF
-            </Link>
-            <div>Edition</div>
+    <main className="p-3 flex flex-col gap-4 md:flex-row max-w-6xl mx-auto min-h-screen">
+      <div className="flex flex-col w-full lg:w-3/4">
+        <img
+          src={post && post.image}
+          alt={post && post.title}
+          className="flex h-56 lg:h-[400px] w-full object-cover object-top border-[1px] rounded-xl shadow-sm"
+        />
+        <h1 className="text-2xl mt-2 lg:mt-4 font-bold w-full mx-auto lg:text-3xl">
+          {post && post.title}
+        </h1>
+        <Divider />
+        {/* display author details and copy link buttons */}
+        <div className="flex items-center justify-between flex-wrap gap-1 mt-1 lg:mt-2">
+          <div className="flex items-center gap-2">
+            <img
+              src={postAuthor && postAuthor.profilePicture}
+              alt={post && postAuthor.fullname}
+              className="flex h-9 w-9 object-cover object-top border-2 rounded-full"
+            />
+            <div className="flex flex-col gap-0 w-24 lg:w-40">
+              <Link
+                to={`/user/${postAuthor._id}`}
+                className="text-slate-600 dark:text-slate-400 font-bold hover:underline underline-offset-4 uppercase  line-clamp-1 text-sm lg:text-md"
+                title="view author profile"
+              >
+                {postAuthor.fullname}
+              </Link>
+              <Link
+                to={`mailto:${postAuthor.email}`}
+                className="text-teal-700 hover:underline underline-offset-4 overflow-clip text-sm lg:text-md"
+              >
+                {postAuthor.email}
+              </Link>
+            </div>
           </div>
 
-          <img
-            src={post && post.image}
-            alt={post && post.title}
-            className="hidden md:flex mt-4 p-3 max-h-[600px] w-full object-cover"
-          />
+          <div
+            className="h-10 bg-gray-200 dark:bg-gray-600 dark:text-slate-200 px-3 py-1 rounded-full flex items-center gap-4"
+            title="likes not yet functional"
+          >
+            <div className="flex items-center gap-2">
+              <SlLike />
+              <span>10</span>
+            </div>
+            <div className="h-full border-r-[1px] border-slate-400"></div>
+            <div className="flex items-center gap-2">
+              <SlDislike />
+              <span>0</span>
+            </div>
+          </div>
+          <Link
+            to={`/search?category=${post && post.category}`}
+            className="self-center"
+            title="view other posts in same category"
+          >
+            <Button
+              color="gray"
+              size="sm"
+              className="shadow-sm capitalize rounded-full px-4"
+            >
+              {post && post.category}
+            </Button>
+          </Link>
+          <div
+            className="h-10 px-3 py-1 bg-gray-200 dark:bg-gray-600 cursor-pointer flex items-center gap-1 rounded-full text-slate-500 dark:text-slate-200"
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              setCopied(true);
+            }}
+            title="copy link to share"
+          >
+            <FaRegShareSquare className="text-xl" />
+            <span>Copy Link</span>
+          </div>
+
+          {copied &&
+            setTimeout(() => {
+              setCopied(false);
+            }, 2000) && (
+              <p className="fixed top-[28%] right-[50%] z-10 rounded-md bg-green-400 text-white p-2">
+                Link copied!
+              </p>
+            )}
+
+          <Link
+            to={post.downloadfile}
+            target="_blank"
+            className="flex gap-1"
+            title="read or download pdf"
+          >
+            <FaDownload /> PDF
+          </Link>
         </div>
 
+        {/* post content */}
         <div className="flex-1">
-          <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
+          <div className="flex justify-between pt-3 border-b border-slate-500 mx-auto w-full text-xs">
             <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
             <span className="italic">
               {post && (post.content.length / 1000).toFixed(0)} mins read
@@ -130,7 +182,7 @@ export default function PostPage() {
 
           <div
             dangerouslySetInnerHTML={{ __html: post && post.content }}
-            className="p-3 max-w-2xl mx-auto w-full post-content text-justify"
+            className="w-full post-content text-justify mt-2"
           ></div>
 
           <div className="max-w-4xl mx-auto w-full">
@@ -140,19 +192,31 @@ export default function PostPage() {
         </div>
       </div>
 
-      {/* Stop here */}
+      <div className="flex-1">
+        {/* Books for Sale */}
+        <div className="flex flex-col justify-center items-center mb-5">
+          <h1 className="text-xl mt-5">Published Books</h1>
 
-      <div className="flex flex-col justify-center items-center mb-5">
-        <h1 className="text-xl mt-5">Recent Articles</h1>
-        <div className="hidden sm:flex flex-wrap gap-5 mt-5 justify-center">
-          {recentPosts &&
-            recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+          <div className="flex flex-wrap gap-5 mt-5 justify-center">
+            <BookAdvert bookImage="/inonefall_cover.jpg" />
+          </div>
         </div>
-        <div className="sm:hidden flex flex-wrap gap-5 mt-5 justify-center">
-          {recentPosts &&
-            recentPosts.map((post) => (
-              <PostCardMobile key={post._id} post={post} />
-            ))}
+
+        {/* recent articles */}
+        <div className="flex flex-col justify-center items-center mb-5">
+          <h1 className="text-xl mt-5">Recent Articles</h1>
+          {/* <div className="hidden sm:flex flex-wrap gap-5 mt-5 justify-center">
+            {recentPosts &&
+              recentPosts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))}
+          </div> */}
+          <div className="flex flex-wrap gap-5 mt-5 justify-center">
+            {recentPosts &&
+              recentPosts.map((post) => (
+                <PostCardMobile key={post._id} post={post} />
+              ))}
+          </div>
         </div>
       </div>
     </main>
