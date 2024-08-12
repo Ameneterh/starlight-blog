@@ -60,7 +60,7 @@ export default function Articles() {
         {posts && posts.length > 0 ? (
           <>
             <Table hoverable className="shadow-md">
-              <Table.Head>
+              <Table.Head className="border-b-2">
                 <Table.HeadCell>Date Updated</Table.HeadCell>
                 <Table.HeadCell>Post Image</Table.HeadCell>
                 <Table.HeadCell>Post Title</Table.HeadCell>
@@ -70,7 +70,7 @@ export default function Articles() {
               </Table.Head>
               {posts.map((post) => (
                 <Table.Body className="divide-y" key={post._id}>
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 border-b">
                     <Table.Cell>
                       {new Date(post.updatedAt).toLocaleDateString()}
                     </Table.Cell>
