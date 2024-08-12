@@ -18,6 +18,7 @@ import Search from "./pages/Search";
 import ReceiveChrist from "./pages/ReceiveChrist";
 import AuthorPage from "./pages/AuthorPage";
 import TermsConditions from "./pages/TermsConditions";
+// import ArticlesWithPagination from "./pages/ArticlesWithPagination";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/receive-christ" element={<ReceiveChrist />} />
         <Route path="/terms-and-conditions" element={<TermsConditions />} />
         <Route path="/articles" element={<Articles />} />
+        {/* <Route path="/articles-1" element={<ArticlesWithPagination />} /> */}
         <Route path="/post/:postSlug" element={<PostPage />} />
 
         <Route element={<PrivateRoutes />}>

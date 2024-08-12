@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import { Link } from "react-router-dom";
 import { Spinner, Table } from "flowbite-react";
-import Pagination from "../components/Pagination";
 
 export default function Articles() {
   const [posts, setPosts] = useState([]);
@@ -10,18 +9,9 @@ export default function Articles() {
   const [loading, setLoading] = useState(true);
   const [showMore, setShowMore] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch(`/api/post/getposts`);
+      const res = await fetch(`/api/post/getposts?limit=10`);
       if (!res.ok) {
         setLoading(false);
         return;
@@ -65,12 +55,12 @@ export default function Articles() {
     );
 
   return (
-    <div className="max-w-6xl mx-auto min-h-screen mb-10">
-      <div className="max-w-6xl mx-auto flex flex-col gap-8 py-7 mb-4 table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-        {currentPosts && currentPosts.length > 0 ? (
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto flex flex-col gap-8 py-7 table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+        {posts && posts.length > 0 ? (
           <>
             <Table hoverable className="shadow-md">
-              <Table.Head>
+              <Table.Head className="border-b-2">
                 <Table.HeadCell>Date Updated</Table.HeadCell>
                 <Table.HeadCell>Post Image</Table.HeadCell>
                 <Table.HeadCell>Post Title</Table.HeadCell>
@@ -78,9 +68,9 @@ export default function Articles() {
                 <Table.HeadCell>Category</Table.HeadCell>
                 {/* <Table.HeadCell>Author Username</Table.HeadCell> */}
               </Table.Head>
-              {currentPosts.map((post) => (
+              {posts.map((post) => (
                 <Table.Body className="divide-y" key={post._id}>
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 border-b">
                     <Table.Cell>
                       {new Date(post.updatedAt).toLocaleDateString()}
                     </Table.Cell>
@@ -128,13 +118,6 @@ export default function Articles() {
           <p>You have not posts yet!</p>
         )}
       </div>
-      <Pagination
-        totalPosts={posts.length}
-        postsPerPage={postsPerPage}
-        paginate={paginate}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
     </div>
   );
 }
