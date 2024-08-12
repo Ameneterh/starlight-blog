@@ -92,7 +92,7 @@ export default function Articles() {
                       </Link>
                     </Table.Cell>
                     <Table.Cell
-                      className="line-clamp-3 w-60 lg:w-96"
+                      className="h-24 line-clamp-4 w-60 lg:w-96 overflow-clip"
                       dangerouslySetInnerHTML={{ __html: post && post.content }}
                     ></Table.Cell>
                     <Table.Cell>

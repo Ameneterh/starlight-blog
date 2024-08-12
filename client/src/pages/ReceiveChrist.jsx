@@ -158,14 +158,19 @@ export default function ReceiveChrist() {
                 <Label htmlFor="agree" className="flex">
                   I agree with the&nbsp;
                   <Link
-                    href="#"
+                    to="/terms-and-conditions"
                     className="text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     terms and conditions
                   </Link>
                 </Label>
               </div>
-              <Button type="submit" className="dark:bg-[rgb(43,56,88)]">
+              <Button
+                type="submit"
+                className="dark:bg-[rgb(43,56,88)]"
+                disabled={formData.tc_acceptance === false}
+                title="you must accept terms and conditions"
+              >
                 {!uploadError && loading ? (
                   <>
                     <Spinner size="sm" />

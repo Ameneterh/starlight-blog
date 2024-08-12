@@ -68,9 +68,20 @@ export default function SignUp() {
         {/* right */}
         <div className="flex-1">
           <div className="">
+            <div className="text-sm text-center w-full bg-slate-100 dark:bg-slate-500 dark:text-slate-800 p-2 rounded-md mb-5">
+              <p>
+                By signing up on our platform, you agree to our{" "}
+                <Link
+                  to="/terms-and-conditions"
+                  className="text-cyan-600 hover:underline dark:text-cyan-500 block"
+                >
+                  Terms & Conditions
+                </Link>
+              </p>
+            </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="">
-                <Label value="Your Full Name" />
+                {/* <Label value="Your Full Name" /> */}
                 <TextInput
                   type="text"
                   placeholder="Fullname"
@@ -79,7 +90,7 @@ export default function SignUp() {
                 />
               </div>
               <div className="">
-                <Label value="Your username" />
+                {/* <Label value="Your username" /> */}
                 <TextInput
                   type="text"
                   placeholder="Username"
@@ -88,7 +99,7 @@ export default function SignUp() {
                 />
               </div>
               <div className="">
-                <Label value="Your email" />
+                {/* <Label value="Your email" /> */}
                 <TextInput
                   type="email"
                   placeholder="email@company.com"
@@ -100,7 +111,7 @@ export default function SignUp() {
                 <Label value="Author Bio (if an author)" />
                 <ReactQuill
                   theme="snow"
-                  placeholder="Write something ..."
+                  placeholder="Write something about yourself ..."
                   className="h-36 mb-12"
                   required
                   onChange={(value) => {
@@ -108,8 +119,8 @@ export default function SignUp() {
                   }}
                 />
               </div>
-              <div className="">
-                <Label value="Your password" />
+              <div className=" mt-5">
+                {/* <Label value="Your password" /> */}
                 <TextInput
                   type="password"
                   placeholder="Password"

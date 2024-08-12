@@ -10,7 +10,7 @@ export default function BookAdvert({ bookImage }) {
         alt="post cover"
         className="object-cover object-top transition-all duration-300 z-20"
       />
-      <div className="w-full z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 bg-blue-600 transition-all 300 text-center py-2 p-3 flex flex-col gap-2">
+      <div className="w-full z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 bg-gray-700 dark:bg-slate-900 text-white transition-all 300 text-center py-2 p-3 flex flex-col gap-2">
         <p>Contact Vendor</p>
         <div className="w-full bg-white text-slate-700 text-xl p-2 flex items-center justify-center gap-4 rounded-full">
           <Link to="mailto:ameneterh@gmail.com" className="hover:text-red-700">

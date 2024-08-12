@@ -17,6 +17,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Search from "./pages/Search";
 import ReceiveChrist from "./pages/ReceiveChrist";
 import AuthorPage from "./pages/AuthorPage";
+import TermsConditions from "./pages/TermsConditions";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/receive-christ" element={<ReceiveChrist />} />
+        <Route path="/terms-and-conditions" element={<TermsConditions />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/post/:postSlug" element={<PostPage />} />
 
