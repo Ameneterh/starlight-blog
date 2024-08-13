@@ -111,7 +111,7 @@ export const likepost = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.postId);
     if (!post) {
-      return next(errorHandler(404, "Motivational not found"));
+      return next(errorHandler(404, "Post not found"));
     }
 
     const userIndex = post.likes.indexOf(req.user.userId);

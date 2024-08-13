@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Spinner } from "flowbite-react";
 import { FaDownload, FaRegShareSquare } from "react-icons/fa";
 import { SlDislike, SlLike } from "react-icons/sl";
@@ -8,6 +8,7 @@ import CommentSection from "../components/CommentSection";
 import PostCard, { PostCardMobile } from "../components/PostCard";
 import Divider from "../components/Divider";
 import BookAdvert from "../components/BookAdvert";
+import { useSelector } from "react-redux";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -18,6 +19,10 @@ export default function PostPage() {
   const [postAuthor, setPostAuthor] = useState({});
   const [recentPosts, setRecentPosts] = useState(null);
   const [copied, setCopied] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  console.log(post);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -69,6 +74,36 @@ export default function PostPage() {
     }
   }, []);
 
+  const handleLike = async (postId) => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-in");
+        return;
+      }
+      const res = await fetch(`/api/post/likepost/${postId}`, {
+        method: "PUT",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setPost(
+          post.map((pst) =>
+            pst._id === postId
+              ? {
+                  ...pst,
+                  likes: data.likes,
+                  numberOfLikes: data.likes.length,
+                }
+              : pst
+          )
+        );
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -118,13 +153,30 @@ export default function PostPage() {
             title="likes not yet functional"
           >
             <div className="flex items-center gap-2">
-              <SlLike />
-              <span>10</span>
+              <button
+                type="button"
+                onClick={() => handleLike(post._id)}
+                className={` hover:text-blue-500 ${
+                  currentUser &&
+                  post.likes.includes(currentUser._id) &&
+                  "!text-blue-500"
+                }`}
+              >
+                <SlLike className="text-md" />
+              </button>
+              <p className="text-gray-400">
+                {post.numberOfLikes > 0 &&
+                  post.numberOfLikes +
+                    " " +
+                    (post.numberOfLikes === 1 ? "like" : "likes")}
+              </p>
             </div>
             <div className="h-full border-r-[1px] border-slate-400"></div>
             <div className="flex items-center gap-2">
-              <SlDislike />
-              <span>0</span>
+              <button>
+                <SlDislike />
+              </button>
+              <span className="text-transparent">0</span>
             </div>
           </div>
           <Link
