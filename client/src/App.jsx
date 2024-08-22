@@ -18,6 +18,7 @@ import Search from "./pages/Search";
 import ReceiveChrist from "./pages/ReceiveChrist";
 import AuthorPage from "./pages/AuthorPage";
 import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 // import ArticlesWithPagination from "./pages/ArticlesWithPagination";
 
 export default function App() {
@@ -33,7 +34,8 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/receive-christ" element={<ReceiveChrist />} />
-        <Route path="/terms-and-conditions" element={<TermsConditions />} />
+        <Route path="/terms-of-use" element={<TermsConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/articles" element={<Articles />} />
         {/* <Route path="/articles-1" element={<ArticlesWithPagination />} /> */}
         <Route path="/post/:postSlug" element={<PostPage />} />
