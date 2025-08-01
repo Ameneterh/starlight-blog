@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import savedRouter from "./routes/saved.route.js";
+import subscribeRouter from "./routes/subscriber.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -35,11 +36,12 @@ app.use("/api/auth", authRouter);
 app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/saved", savedRouter);
+app.use("/api/subscribe", subscribeRouter);
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// app.use(express.static(path.join(__dirname, "/client/dist")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

@@ -3,7 +3,7 @@ import termsOfUse from "/terms.png";
 
 export default function TermsConditions() {
   return (
-    <div className="max-w-5xl mx-auto min-h-screen mb-10 text-lg">
+    <div className="max-w-5xl mx-auto min-h-screen mb-10 text-sm">
       <div className="w-full flex flex-col gap-y-2 lg:gap-y-3 mx-auto p-3 lg:py-10">
         <h1 className="text-2xl lg:text-4xl font-extrabold">Terms of Use</h1>
         <h2 className="text-xl font-bold mt-4">Terms:</h2>

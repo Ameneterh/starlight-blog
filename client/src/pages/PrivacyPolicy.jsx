@@ -3,7 +3,7 @@ import privacyImage from "/Privacy-Policy-Banner.png";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="max-w-5xl mx-auto min-h-screen mb-10 text-lg">
+    <div className="max-w-5xl mx-auto min-h-screen mb-10 text-sm">
       <div
         className="w-full h-32 md:h-80"
         style={{
@@ -77,8 +77,8 @@ export default function PrivacyPolicy() {
           We do not sell, trade, or rent user personal identification
           information to others. However, we have no way of protecting
           information that is publicly available on our platform, e.g. profile
-          images, usernames, etc that may be displayed beside user comments,
-          etc.
+          images, usernames, etc that may be displayed beside user posts,
+          comments, etc.
         </p>
 
         <h2 className="text-xl font-bold mt-4">Third party websites:</h2>

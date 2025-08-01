@@ -19,6 +19,11 @@ import ReceiveChrist from "./pages/ReceiveChrist";
 import AuthorPage from "./pages/AuthorPage";
 import TermsConditions from "./pages/TermsConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ContactPage from "./pages/ContactPage";
+import { HomePage } from "./pages/HomePage";
+import { DonatePage } from "./pages/DonatePage";
+import RecommendedResources from "./pages/RecommendedResources";
+import DownloadsPage from "./pages/DownloadsPage";
 // import ArticlesWithPagination from "./pages/ArticlesWithPagination";
 
 export default function App() {
@@ -28,7 +33,11 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/donate" element={<DonatePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/recommended" element={<RecommendedResources />} />
         <Route path="/user/:userId" element={<AuthorPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -37,6 +46,7 @@ export default function App() {
         <Route path="/terms-of-use" element={<TermsConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/downloads" element={<DownloadsPage />} />
         {/* <Route path="/articles-1" element={<ArticlesWithPagination />} /> */}
         <Route path="/post/:postSlug" element={<PostPage />} />
 

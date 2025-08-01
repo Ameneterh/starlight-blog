@@ -48,16 +48,16 @@ export default function PostPage() {
     };
     fetchPost();
 
-    const fetchPostAuthor = async (userId) => {
-      const res = await fetch(`/api/user/${userId}`);
-      const author = await res.json();
-      if (res.ok) {
-        setPostAuthor(author);
-      }
-    };
+    // const fetchPostAuthor = async (userId) => {
+    //   const res = await fetch(`/api/user/${userId}`);
+    //   const author = await res.json();
+    //   if (res.ok) {
+    //     setPostAuthor(author);
+    //   }
+    // };
 
-    fetchPostAuthor(post.userId);
-  }, [postSlug, post.userId]);
+    // fetchPostAuthor(post.userId);
+  }, [postSlug]);
 
   useEffect(() => {
     try {
@@ -114,11 +114,6 @@ export default function PostPage() {
   return (
     <main className="p-3 flex flex-col gap-4 md:flex-row max-w-6xl mx-auto min-h-screen">
       <div className="flex flex-col w-full lg:w-3/4">
-        <img
-          src={post && post.image}
-          alt={post && post.title}
-          className="flex h-56 lg:h-[400px] w-full object-cover object-top border-[1px] rounded-xl shadow-sm"
-        />
         <h1 className="text-2xl mt-2 lg:mt-4 font-bold w-full mx-auto lg:text-3xl">
           {post && post.title}
         </h1>
@@ -127,23 +122,23 @@ export default function PostPage() {
         <div className="flex items-center justify-between flex-wrap gap-1 mt-1 lg:mt-2">
           <div className="flex items-center gap-2">
             <img
-              src={postAuthor && postAuthor.profilePicture}
-              alt={post && postAuthor.fullname}
+              src={post?.userId.profilePicture}
+              alt={post?.userId.fullname}
               className="flex h-9 w-9 object-cover object-top border-2 rounded-full"
             />
             <div className="flex flex-col gap-0 w-24 lg:w-40">
               <Link
-                to={`/user/${postAuthor._id}`}
+                to={`/user/${post?.userId._id}`}
                 className="text-slate-600 dark:text-slate-400 font-bold hover:underline underline-offset-4 uppercase  line-clamp-1 text-sm lg:text-md"
                 title="view author profile"
               >
-                {postAuthor.fullname}
+                {post?.userId.fullname}
               </Link>
               <Link
-                to={`mailto:${postAuthor.email}`}
+                to={`mailto:${post?.userId.email}`}
                 className="text-teal-700 hover:underline underline-offset-4 overflow-clip text-sm lg:text-md"
               >
-                {postAuthor.email}
+                {post?.userId.email}
               </Link>
             </div>
           </div>
@@ -180,7 +175,7 @@ export default function PostPage() {
             </div>
           </div>
           <Link
-            to={`/search?category=${post && post.category}`}
+            to={`/search?category=${post?.category}`}
             className="self-center"
             title="view other posts in same category"
           >
@@ -189,7 +184,7 @@ export default function PostPage() {
               size="sm"
               className="shadow-sm capitalize rounded-full px-4"
             >
-              {post && post.category}
+              {post?.category == "living" ? "christian living" : post.category}
             </Button>
           </Link>
           <div
@@ -231,6 +226,13 @@ export default function PostPage() {
               {post && (post.content.length / 1000).toFixed(0)} mins read
             </span>
           </div>
+
+          {/* post image */}
+          <img
+            src={post && post.image}
+            alt={post && post.title}
+            className="flex h-56 lg:h-[400px] w-full object-cover object-top border-[5px] border-white rounded-xl shadow-md my-6"
+          />
 
           <div
             dangerouslySetInnerHTML={{ __html: post && post.content }}

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
 import { useNavigate } from "react-router-dom";
+// import { useAuthStore } from "../store/authStore.js";
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -30,7 +31,7 @@ export default function CommentSection({ postId }) {
         body: JSON.stringify({
           content: comment,
           postId,
-          userId: currentUser._id,
+          userId: user._id,
         }),
       });
       const data = await res.json();
@@ -64,7 +65,7 @@ export default function CommentSection({ postId }) {
   const handleLike = async (commentId) => {
     try {
       if (!currentUser) {
-        navigate("/sign-in");
+        navigate("/login");
         return;
       }
       const res = await fetch(`/api/comment/likecomment/${commentId}`, {
@@ -100,8 +101,8 @@ export default function CommentSection({ postId }) {
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {
-      if (!currentUser) {
-        navigate("/sign-in");
+      if (!user) {
+        navigate("/login");
         return;
       }
       const res = await fetch(`/api/comment/deletecomment/${commentId}`, {
@@ -124,7 +125,7 @@ export default function CommentSection({ postId }) {
           <img
             className="h-5 w-5 object-cover rounded-full"
             src={currentUser.profilePicture}
-            alt="user image"
+            alt="currentUser image"
           />
           <Link
             to={"/dashboard?tab=profile"}
@@ -136,7 +137,7 @@ export default function CommentSection({ postId }) {
       ) : (
         <div className="text-sm text-teal-500 my-5 flex gap-1">
           You must be signed in to comment.
-          <Link to={"/sign-in"} className="text-blue-500 hover:underline">
+          <Link to={"/login"} className="text-blue-500 hover:underline">
             Sign in
           </Link>
         </div>

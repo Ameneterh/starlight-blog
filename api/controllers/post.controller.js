@@ -49,7 +49,8 @@ export const getposts = async (req, res, next) => {
     })
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
+      .populate("userId");
 
     const totalPosts = await Post.countDocuments();
     const now = new Date();
