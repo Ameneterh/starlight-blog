@@ -15,8 +15,6 @@ export function HomePage() {
   const [showModal, setShowModal] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
-  console.log(posts);
-
   useEffect(() => {
     setShowModal(true);
   }, [!currentUser || currentUser._id]);
@@ -137,11 +135,14 @@ export function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full px-3">
             {[
-              "7 Promises of God to Stand On Today",
-              "Free 30-Day Bible Reading Plan (PDF)",
-              "Overcoming Anxiety with Scripture",
+              "Seven Promises of God to Stand On Today (PDF) - FREE",
+              "Free Bible Reading Plans (PDF) - 7-Days, 30-Days, 365-Days",
+              "Free Christian ebooks from God's servants (PDF)",
             ].map((title, idx) => (
               <div key={idx} className="bg-white p-6 rounded-2xl shadow">
+                <h2 className="text-red-500 text-xl font-extrabold font-sans mb-3">
+                  Available Shortly!
+                </h2>
                 <h3 className="text-xl font-semibold mb-2">{title}</h3>
                 <button className="text-blue-600 mt-2">Watch Out →</button>
               </div>
@@ -156,7 +157,7 @@ export function HomePage() {
       </section>
 
       {/* Email Signup */}
-      <section className="bg-white py-16 px-6 text-center">
+      <section className="bg-white pt-16 px-6 text-center">
         <h2 className="text-2xl font-bold mb-2">
           📬 Want to be notified of new content?
         </h2>

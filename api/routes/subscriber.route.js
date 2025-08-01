@@ -4,6 +4,6 @@ import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
 
-router.post("/subscribe", subscribe);
+router.post("/new-subscription", subscribe);
 
 export default router;

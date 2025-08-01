@@ -1,20 +1,39 @@
 import { errorHandler } from "../utils/error.js";
 import Subscriber from "../models/subscriber.model.js";
-import bcryptjs from "bcryptjs";
 
 export const subscribe = async (req, res, next) => {
   const { email } = req.body;
+
+  //   check if email field is completed
   if (!email || email === "") {
     return next(errorHandler(400, "All fields are required!"));
   }
 
+  // check if email already exists
+  const emailAlreadyExists = await Subscriber.findOne({ email });
+  if (emailAlreadyExists) {
+    return next(
+      errorHandler(400, "Subscription already exists for this email!")
+    );
+  }
+
+  // generate verification code
+  const verificationToken = Math.floor(
+    100000 + Math.random() * 900000
+  ).toString();
+
+  //   save new subscriber
   const newSubscriber = new Subscriber({
     email,
+    verificationToken,
+    verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
   });
 
   try {
     await newSubscriber.save();
-    res.json("You Subscribed Successfully!");
+    res
+      .status(201)
+      .json({ success: true, message: "You Subscribed Successfully!" });
   } catch (error) {
     next(error);
   }

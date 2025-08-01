@@ -7,12 +7,12 @@ const subscriberSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    // isVerified: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // verificationToken: String,
-    // verificationTokenExpiresAt: Date,
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: String,
+    verificationTokenExpiresAt: Date,
   },
   { timestamps: true }
 );

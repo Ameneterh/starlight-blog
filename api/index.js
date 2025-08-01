@@ -38,10 +38,10 @@ app.use("/api/comment", commentRouter);
 app.use("/api/saved", savedRouter);
 app.use("/api/subscribe", subscribeRouter);
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
