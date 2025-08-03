@@ -7,6 +7,7 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import savedRouter from "./routes/saved.route.js";
 import subscribeRouter from "./routes/subscriber.route.js";
+import messageRouter from "./routes/message.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -37,6 +38,7 @@ app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/saved", savedRouter);
 app.use("/api/subscribe", subscribeRouter);
+app.use("/api/contact", messageRouter);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 app.get("*", (req, res) => {

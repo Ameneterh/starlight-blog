@@ -33,13 +33,14 @@ export function HomePage() {
       {/* Hero Section */}
       <section className="bg-cover bg-center bg-[url('/openbible.png')] min-h-screen flex flex-col items-center text-white text-center px-4 py-4 md:py-10">
         <h1 className="text-3xl md:text-5xl font-bold mb-4 font-sans drop-shadow-md shadow-gray-950">
-          Free Christian Resources to Nourish Your Faith
+          Free Christian Resources{" "}
+          <span className="md:block">to Nourish Your Faith</span>
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10">
           <div className="flex flex-1 flex-col gap-4 md:gap-10 px-3">
-            <h1 className="text-3xl font-bold lg:text-5xl drop-shadow-lg text-gray-700 md:text-white">
+            {/* <h1 className="text-3xl font-bold lg:text-5xl drop-shadow-lg text-gray-700 md:text-white">
               Welcome to
-            </h1>
+            </h1> */}
             <div className="flex justify-center rounded-md bg-white backdrop-blur-3xl shadow-lg p-4">
               {/* <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl text-white">
                 Starlight

@@ -1,4 +1,12 @@
-import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Navbar,
+  Tooltip,
+  TextInput,
+} from "flowbite-react";
+import { Badge, Space } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -6,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
+import MessagesComponent from "./MessagesComponent";
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -13,8 +22,14 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const [searchTerm, setSearchTerm] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [totalMessages, setTotalMessages] = useState(0);
+  const [showMessages, setShowMessages] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(messages);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -48,14 +63,43 @@ export default function Header() {
     navigate(`/search?${searchQuery}`);
   };
 
+  const getMessages = async () => {
+    try {
+      const res = await fetch(`/api/contact/get-messages`);
+      const data = await res.json();
+      if (res.ok) {
+        setMessages(data.messages);
+        setTotalMessages(data.totalMessages);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  }, [location.pathname]);
+
+  const readMessages = async () => {
+    try {
+      const res = await fetch(`/api/contact/read-all-messages`);
+      const data = await res.json();
+      if (res.ok) {
+        getMessages();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50">
       <div className="flex justify-center items-center w-full bg-[#943d24] dark:bg-slate-900 p-1 border-b-[2px] border-b-slate-200">
-        <p className="text-white text-lg truncate">
+        <p className="text-white text-sm md:text-lg truncate">
           Like stars, shine through the dark night sky
         </p>
       </div>
-      <Navbar fluid className="border-b-2">
+      <Navbar fluid className="border-b-2 md:px-10 ">
         <Link to="/" className="hidden sm:inline">
           <img
             src="/apple-touch-icon.png"
@@ -90,9 +134,9 @@ export default function Header() {
         >
           <AiOutlineSearch />
         </Button> */}
-        <div className="flex gap-2 md:order-2">
+        <div className="flex items-center gap-2 md:order-2">
           <Button
-            className="w-12 h-10"
+            className="w-10 h-8 mr-3"
             color="gray"
             onClick={() => {
               dispatch(toggleTheme());
@@ -100,6 +144,32 @@ export default function Header() {
           >
             {theme === "light" ? <FaMoon /> : <FaSun />}
           </Button>
+          {currentUser && currentUser.isAdmin ? (
+            <Tooltip content="Unread Messages" placement="bottom">
+              <Badge
+                count={messages.filter((message) => !message.read).length}
+                onClick={() => {
+                  readMessages();
+                  setShowMessages(true);
+                }}
+                className="cursor-pointer"
+              >
+                <Avatar shape="square" size="large" />
+              </Badge>
+            </Tooltip>
+          ) : (
+            <></>
+          )}
+
+          {/* display notifications modal */}
+          <MessagesComponent
+            messages={messages}
+            // reloadNotifications={getNotifications}
+            showMessages={showMessages}
+            setShowMessages={setShowMessages}
+          />
+
+          {/*  */}
           {currentUser ? (
             <Dropdown
               arrowIcon={false}
@@ -126,12 +196,14 @@ export default function Header() {
               <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
             </Dropdown>
           ) : (
-            <Link to="/sign-in">
-              <Button gradientDuoTone="purpleToBlue" outline>
-                Sign In
-              </Button>
+            <Link
+              to="/sign-in"
+              className="flex items-center text-center h-[34px] px-4 bg-blue-900 rounded-md text-white hover:bg-opacity-75 transition-all duration-300"
+            >
+              Sign In
             </Link>
           )}
+
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
