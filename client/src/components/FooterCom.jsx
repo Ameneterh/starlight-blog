@@ -9,6 +9,7 @@ import {
   BsWhatsapp,
 } from "react-icons/bs";
 import { MdAddCall } from "react-icons/md";
+import { FaLinkedin } from "react-icons/fa";
 
 export default function FooterCom() {
   return (
@@ -75,17 +76,36 @@ export default function FooterCom() {
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
             <Footer.Icon
+              href="tel:+2348154230654"
+              icon={MdAddCall}
+              target="_blank"
+            />
+            <Footer.Icon
               href="https://www.facebook.com/amenest"
               icon={BsFacebook}
+              target="_blank"
             />
-            <Footer.Icon href="#" icon={BsInstagram} />
             <Footer.Icon
-              href="https://www.twitter.com/ameneterh"
-              icon={BsTwitter}
+              href="https://www.instagram.com/ameneterh/"
+              icon={BsInstagram}
+              target="_blank"
             />
-            <Footer.Icon href="https://github.com/Ameneterh" icon={BsGithub} />
-            <Footer.Icon href="https://wa.me/2348154230654" icon={BsWhatsapp} />
-            <Footer.Icon href="tel:+2348154230654" icon={MdAddCall} />
+            <Footer.Icon
+              href="https://www.linkedin.com/in/ameneterh"
+              icon={FaLinkedin}
+              target="_blank"
+            />
+            <Footer.Icon
+              href="https://www.x.com/ameneterh/"
+              icon={BsTwitter}
+              target="_blank"
+            />
+            {/* <Footer.Icon href="https://github.com/Ameneterh" icon={BsGithub} /> */}
+            <Footer.Icon
+              href="https://wa.me/2348154230654"
+              icon={BsWhatsapp}
+              target="_blank"
+            />
           </div>
         </div>
       </div>
